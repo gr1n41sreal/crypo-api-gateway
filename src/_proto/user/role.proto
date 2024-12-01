@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package crypo.role;
+
+import "user/user-enums.proto";
+
+service RoleService {
+  // Roles
+  rpc CreateRole(Role) returns (Role);
+  rpc GetRoles (Stub) returns (RoleList);
+  rpc GetRole(GetRoleRequest) returns (Role);
+  rpc GetRolesWithGrant (Stub) returns (RoleList);
+  rpc UpdateRole(Role) returns (Role);
+  rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse);
+  // Grants
+  rpc SetGrants(SetGrantsRequest) returns (Role);
+  rpc GetGrants(Stub) returns (GrantList);
+  rpc GetGrantByRole(GetRoleRequest) returns (GrantList);
+}
+
+// Roles
+
+message RoleList {
+  repeated Role roles = 1;
+}
+
+message Role {
+  int32 id = 1;
+  string name = 2;
+  user.UserRoles role = 3;
+  string icon = 4;
+  string color = 5;
+  repeated Grant grants = 6;
+}
+
+message GetRoleRequest {
+  int32 id = 1;
+}
+
+message DeleteRoleRequest {
+  int32 id = 1;
+}
+
+message DeleteRoleResponse {
+  bool success = 1;
+}
+
+// Grants
+
+message GrantList {
+  repeated Grant grants = 1;
+}
+
+message Grant {
+  user.UserRoles role = 1;
+  string resource = 2;
+  string action = 3;
+  repeated string attributes = 4;
+}
+
+message SetGrantsRequest {
+  int32 role_id = 1; 
+  repeated SetGrantByRole grants = 2;
+}
+
+message SetGrantByRole {
+  string resource = 1;
+  string action = 2;
+  repeated string attributes = 3;
+}
+
+// Other
+
+message Stub {}
+

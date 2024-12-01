@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package crypo.user;
+
+enum UserRoles {
+  USER_ROLES_UNSPECIFIED = 0;
+  USER_ROLES_SUPER_ADMIN = 1;
+  USER_ROLES_ADMIN = 2;
+  USER_ROLES_USER = 3;
+}
+
+enum AvailableUserFilterProps {
+  EMAIL = 0;
+  PHONE = 1;
+  ID = 2;
+}

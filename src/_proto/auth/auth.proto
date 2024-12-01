@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package crypo.auth;
+
+service Authorization {
+  // Auth
+  rpc Login(LoginRequest) returns (AuthorizationTokens) {}
+  rpc Logout(AccessToken) returns (LogoutResponse) {}
+  rpc LogoutByUserId(LogoutByUserIdRequest) returns (LogoutResponse) {}
+  rpc Verify(AccessToken) returns (VerifyResponse) {}
+  rpc RefreshAccessToken(RefreshToken) returns (AuthorizationTokens) {}
+}
+
+// Auth
+
+message AccessToken {
+  string access_token = 1;
+}
+
+message RefreshToken {
+  string refresh_token = 1;
+}
+
+message AuthorizationTokens {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message LoginRequest {
+  uint32 user_id = 1;
+  string user_ip = 2;
+  uint32 user_role = 3;
+}
+
+message LogoutByUserIdRequest {
+  uint32 user_id = 1;
+}
+
+message LogoutResponse {
+  bool success = 1;
+}
+
+message VerifyResponse {
+  bool is_valid = 1;
+}
+
+// Other
+
+message SendStatus {
+  bool success = 1;
+}
+
+message Stub {}
